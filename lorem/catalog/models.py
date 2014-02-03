@@ -9,7 +9,7 @@ from django.forms import ModelForm
 #from myadpp.models import Article
 #from mptt.models import MPTTModel, TreeForeignKey
 
-
+from redactor.fields import RedactorField
 
 #from lib.thumbs import ImageWithThumbsField
 if 1:
@@ -29,20 +29,21 @@ if 1:
 class Tag(models.Model):
     title = models.CharField(max_length=255)
     alias = AutoSlugField(max_length=255)
-    tag   = models.ForeignKey('self', null = True, related_name="Parent Tag")
-
+    tag   = models.ForeignKey('self', null = True, blank = True, related_name="Parent Tag")
+    def __unicode__(self):
+        return self.title
 
 class Item(models.Model):
 	mainPhoto	=	ImageWithThumbsField(upload_to='images', sizes=((125,125),(300,300)), blank=True, verbose_name=u"Фото")
 	title		=	models.CharField(max_length=255, verbose_name=u"Заголовок")
 	alias		=	AutoSlugField(populate_from='title')
-	text		=	models.TextField(max_length=255,verbose_name=u"Описание")
+	text		=	RedactorField(verbose_name=u"Описание")
 	pub_date	=	models.DateTimeField(auto_now_add = True, verbose_name=u"Дата создания")
 	upd_date	=	models.DateTimeField(auto_now_add = True, verbose_name=u"Дата изменения1")
 	tags            =       models.ManyToManyField(Tag)
         html_title      =       models.TextField(max_length=255,verbose_name="Заголовок страницы", null=True, blank=True)
         html_description=       models.TextField(max_length=255,verbose_name="Описание страницы", null=True, blank=True)
-        meta_keywords   =       models.TextField(max_length=255,verbose_name="meta_keywords")
+        meta_keywords   =       models.TextField(max_length=255,verbose_name="meta_keywords", null=True, blank=True)
 
 	def __unicode__(self):
 		return self.title

@@ -12,17 +12,19 @@ from pages import views as pgs
 from filebrowser.sites import site
 #from feedback.views import feedback
 admin.autodiscover()
+from django_summernote.views import editor, upload_attachment
 
-from menuz import registry
-registry.autodiscover()
+#from menuz import registry
+#registry.autodiscover()
 
 
 
 
 urlpatterns = patterns('',
-	
-    (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes':True}),
-    url(r'', include('menuz.urls')),
+#   (r'^summernote/', include('django_summernote.urls')),	
+url(r'^redactor/', include('redactor.urls')),
+(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes':True}),
+  #  url(r'', include('menuz.urls')),
     #url (r'^basket/',basket.view),    
     #url (r'^feedback/',feedback),
 
@@ -34,6 +36,7 @@ urlpatterns = patterns('',
 
     # Uncomment the admin/doc line below to enable admin 
     #documentation:
+    url(r'^boobs/(.*)',adv.item),
      url(r'^search/*', adv.search),
     # url(r'^Item/up/(\d*)/', adv.up),
     #url(r'^Item/delete/(\d*)/', adv.delete),
@@ -44,7 +47,7 @@ urlpatterns = patterns('',
       
     #url(r'^Items/add', adv.add),
     #url(r'^category/(.*)/', adv.category),    
-    url(r'^catalog/items/(\d*)/', adv.Item),    
+    #url(r'^catalog/items/(\d*)/', adv.Item),    
     #url(r'^city/(\d*)/', adv.setcity),    
     url(r'^accounts/', include('registration.backends.default.urls')),
 	url('foundation', include('foundation.urls')),

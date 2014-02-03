@@ -1,7 +1,5 @@
 {% load static %}
 {% load category_tags %}
-{% load menuz_tags %}
-
 <!DOCTYPE html>
 <!--[if IE 8]> <html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
@@ -28,7 +26,6 @@
     {% endblock foundation_modernizer %}
 
     {# Custom head JS #}
-    {% block head_js %}{% endblock head_js %}
      
    <script type="text/javascript" src="/static/jqmin.js"></script>
 
@@ -61,7 +58,6 @@
       <li class="divider"></li>
       <li class="active"><a href="/">Главная</a></li>
 
-      {% pagesList %}	
 
        
    
@@ -99,17 +95,21 @@
                     
                     <li class="divider"></li>
                     <li class="title"><strong>Последнии статьи</strong></li>
+                    {% lastItems %}
+                    <!--
                     <li> <a href="#"> Marylin Sakova    </a></li>
                     <li> <a href="#">Nicole Malice      </a></li>
                     <li> <a href="#">Pink Kandi         </a></li>
                     <li> <a href="#">Iosif Kobzon       </a></li>
-				</ul>
+				    -->
+
+                </ul>
 		</div>
 		
 	
 	    <br/>
 	    <br/>
-		<div class="columns large-7">
+		<!--<div class="columns large-7">
 			<ul class="breadcrumbs ">
  <li>
 			<a href="/">
@@ -131,7 +131,7 @@
 		{% endfor %}
 	{% endif %}
 
-	</ul></div>
+    </ul></div>-->
     {# Main content goes here #}
     {% block foundation_body %}{% endblock foundation_body %}
 	

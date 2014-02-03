@@ -5,15 +5,18 @@
 	
 	
 	
-	<div class="columns large-7">
+	<div class="columns large-10">
 			
 			
-			<div class='columns large-12 panel'>
+			<div class='columns large-9'>
 				<h6> {{ item.title }} </h6>
-				<div class='columns panel large-12'>
-				<br/>
-				</div>
-					
+                <hr/>
+                <div class="item-content">
+                    {{ item.text|safe }}
+                </div>
+
+            </div>
+            <div class='columns large-3'>
 			
 				
 				<div style="text-align:center;" class='panel columns large-12'>
@@ -21,39 +24,14 @@
 					<img src='{{ item.mainPhoto.url }}'> 
 					{% endif %}
 				</div>
-				<div class='columns panel large-12'>
-					<div><a href='#' onclick='$(this).parent().children("form").toggle(); return false;'> Что-то не так? </a>
-					
-					<form style="display:none;" action="/warring/" method="post"> 
-						<br/>
-						<br/>
-						{% csrf_token %}
-						<input type="hidden" name="userId" value="{{item.owner.id}}">
-						<textarea name="reason"></textarea>
-						<input class="button small" type="submit" value="Подтвердить">
-						
-					</form>
-					
-					</div>
-					
-				</div>
-				
+							
 				
 				<div class='columns small-12 panel'>
-					<p>{{ item.text }}</p>
-					<br/>
-					<br/>
-					<table> 
-						<tr>
-							<td colspan=2> <u> Дополнительные параметры </u> </td>
-						</tr>
-						{% for p in itemparams %}
-						<tr>
-							<td> {{ p.field }}: </td>
-							<td> {{ p.value }} </td>
-						</tr>
+						{% for p in item.additional_info %}
+							 {{ p.category.title }}:
+							 {{ p.value }} 
+                             <br/>
 						{% endfor %}
-					</table>
 					
 						
 					</div>
@@ -62,9 +40,13 @@
 			
 			</div>
 		
-		
+			<div class="columns large-12">
+            <strong>Тэги: </strong>
+            {% for tag in item.tags.all %}
+                {{ tag.title }} 
+            {% endfor %}
+        </div>	
 	</div>
-	
 	
 
 

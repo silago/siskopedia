@@ -89,22 +89,23 @@ INSTALLED_APPS = (
 	'pages',
 	#'tuhes_basket',
 	'tuhes_breadcrumbs',
-	
+      
 	#'basket',
 	#'feedback',
 	#'profiles',
 	'tags',
-	'grappelli',
-	'filebrowser',
+	#'grappelli',
+        #'filebrowser',
     # Uncomment the next line to enable the admin:
     	
     # Uncomment the next line to enable admin documentation:
     	'django.contrib.admindocs',
     #	'grappelli',
-	'foundation',    
+    'foundation',    
 	'south',
-        'menuz',
-		
+  #'django_summernote',
+        #'menuz',
+        'redactor',		
 )
 
 LOGGING = {

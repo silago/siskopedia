@@ -4,9 +4,17 @@ register = template.Library()
 #from advertisments.models import Advertisment, AdvertismentFieldValues
 #from advertisments.models import City
 from pages.models import Page
-from slider.models import Slider
+from catalog.models import Item
+#from slider.models import Slider
 from django.db.models import Count
 from django.db.models import F
+
+
+@register.inclusion_tag('tags/last_items.html', takes_context = True)
+def lastItems(context):
+    items = Item.objects.all()[:4]
+    return {'items':items}
+
 """
 @register.inclusion_tag('tags/slider.html',takes_context = True)	
 def slider(context):

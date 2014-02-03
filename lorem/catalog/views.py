@@ -3,10 +3,8 @@ from django.http import Http404
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 #from catalog.models import CaForm
+from catalog.models import *
 from catalog.models import Item as AdvItem
-#from catalog.models import ItemFieldValues
-#from catalog.models import Category
-#from catalog.models import CategoryField
 from django.template import RequestContext
 from django.db.models import Q
 from django.db.models import Count
@@ -118,9 +116,10 @@ def category(request,category):
 #есть ли способо не передавать вид? нет. или урл или вид. говно.
 
 #@t_bread(field='id', item_model=AdvItem, foreignKey=('alias','category'), foreignView=category)
-def Item(request,itemId):
-	item = AdvItem.objects.get(id=itemId)
-	return render_to_response('advertisments/item.html',{'item':item,'itemparams':{}},context_instance=RequestContext(request))
+def item(request,item_alias):
+	item = AdvItem.objects.get(alias=item_alias)
+        item.additional_info = InfoValue.objects.filter(item__id=item.id)
+        return render_to_response('advertisments/item.html',{'item':item,'itemparams':{}},context_instance=RequestContext(request))
 
 
 def normalize_query(query_string,
