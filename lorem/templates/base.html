@@ -4,11 +4,19 @@
 <!--[if IE 8]> <html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
+    <style type="text/css">
+        .border {border:1px solid lightgray; zpadding:15px; margin-bottom:15px;}
+        div.nomorepaddborderolumns > div.columns { padding:0px;}
+        .marginleft {margin-left:15px;}
+    
+    </style>
+    <link rel="icon" type="image/gif" href="/media/favicon.gif" />
+    
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     {% block meta %}{% endblock %}
     {% block base_title %}
-    <title>{% block title %}www.lorem.com{% endblock %}</title>
+    <title>{% block title %} Сиськопедия {% endblock %}</title>
     {% endblock base_title %}
 
     {# Base Foundation CSS #}
@@ -68,14 +76,16 @@
     <ul class="right">
     <li class="has-form">
         <div class="row collapse">
+                <form method="get" action="/search/">
             <div class="large-8 small-9 columns">
-                <input type="text" placeholder="Найти сиськи"/>
-             </div>
+                  <input name="s" type="text" placeholder="Найти сиськи"/>
+              </div>
             <div class="large-4 small-3 columns">
-                <a class="alert button expand" href="#">
+                <a onclick="$(this).closest('form').submit();" class="alert button expand" href="#">
                     Найти
                 </a>
          </div>
+                </form>
     </li>
     
     </ul>
@@ -83,18 +93,22 @@
 </nav>
 	
 	{% endblock top_nav %}
-	<div class="columns large-12">
+	<div class="row">
 	<div class="columns large-2">
-	
-				<ul class="side-nav">
+        <div class="">
+            <br/>        
+            <br/>        
+            <img src="/media/logoleft.jpg" alt=""/>
+		</div>
+                    <ul class="side-nav">
 					
 					<li class="title"><strong> Навигация </strong></li>
                     <li><a href="#">Главная</a></li>
-                    <li><a href="#">Просмотр категорий</a></li>
-                    <li><a href="#">Случайная страница</a></li>
+                    <!-- <li><a href="#">Просмотр категорий</a></li> -->
+                    <li><a href="/random/">Случайная страница</a></li>
                     
                     <li class="divider"></li>
-                    <li class="title"><strong>Последнии статьи</strong></li>
+                    <li class="title"><strong>Последниe статьи</strong></li>
                     {% lastItems %}
                     <!--
                     <li> <a href="#"> Marylin Sakova    </a></li>

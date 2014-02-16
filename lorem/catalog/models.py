@@ -33,6 +33,9 @@ class Tag(models.Model):
     def __unicode__(self):
         return self.title
 
+
+
+
 class Item(models.Model):
 	mainPhoto	=	ImageWithThumbsField(upload_to='images', sizes=((125,125),(300,300)), blank=True, verbose_name=u"Фото")
 	title		=	models.CharField(max_length=255, verbose_name=u"Заголовок")
@@ -44,23 +47,26 @@ class Item(models.Model):
         html_title      =       models.TextField(max_length=255,verbose_name="Заголовок страницы", null=True, blank=True)
         html_description=       models.TextField(max_length=255,verbose_name="Описание страницы", null=True, blank=True)
         meta_keywords   =       models.TextField(max_length=255,verbose_name="meta_keywords", null=True, blank=True)
-
+        item_type       =       models.CharField(max_length=255,verbose_name="Тип статьи",choices = (('n','Новая'),('g','Хорошая'),('b','Лучшая')), default='n');
 	def __unicode__(self):
 		return self.title
+        def get_absolute_url(self):
+            return "/boobs/%s" % self.alias
 	class Meta:
-		verbose_name = " Объявление "
-		verbose_name_plural = " Объявления "
+		verbose_name = " Сиськи "
+		verbose_name_plural = " Сиськи  "
     
 
 class InfoCategory(models.Model):
-    title = models.TextField(max_length=255)
-    alias = models.TextField(max_length=255)
+    title = models.CharField(max_length=255)
+    alias = models.CharField(max_length=255)
+    def __unicode__(self):
+        return self.title
 
 class InfoValue(models.Model):
-    value       = models.TextField(max_length=255)
+    value       = models.CharField(max_length=255)
     category    = models.ForeignKey(InfoCategory,)
     item        = models.ForeignKey(Item,)
-
 #class AdvertismentForm(ModelForm):
 #	class Meta:
 #		model	=	Item

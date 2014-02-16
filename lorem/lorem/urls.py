@@ -36,8 +36,10 @@ url(r'^redactor/', include('redactor.urls')),
 
     # Uncomment the admin/doc line below to enable admin 
     #documentation:
+    url(r'tag/(.*)/',adv.tag),
+    url(r'random/',adv.rand),
     url(r'^boobs/(.*)',adv.item),
-     url(r'^search/*', adv.search),
+    url(r'^search/*', adv.search),
     # url(r'^Item/up/(\d*)/', adv.up),
     #url(r'^Item/delete/(\d*)/', adv.delete),
     #url(r'^warring/', us.setWarring),

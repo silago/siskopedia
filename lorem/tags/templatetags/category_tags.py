@@ -4,7 +4,7 @@ register = template.Library()
 #from advertisments.models import Advertisment, AdvertismentFieldValues
 #from advertisments.models import City
 from pages.models import Page
-from catalog.models import Item
+from catalog.models import Item,Tag
 #from slider.models import Slider
 from django.db.models import Count
 from django.db.models import F
@@ -14,6 +14,17 @@ from django.db.models import F
 def lastItems(context):
     items = Item.objects.all()[:4]
     return {'items':items}
+
+@register.inclusion_tag('tags/good_items.html', takes_context = True)
+def goodItems(context):
+    items = Item.objects.filter(item_type="g")[:4]
+    return {'items':items}
+
+@register.inclusion_tag('tags/best_items.html', takes_context = True)
+def bestItems(context):
+    items = Item.objects.filter(item_type="b")[:1]
+    return {'items':items}
+
 
 """
 @register.inclusion_tag('tags/slider.html',takes_context = True)	
@@ -63,7 +74,11 @@ def categoryList(context):
 #	cityId = int(cityId)
 #	return {'list':cities,'cityId':cityId}
 	
-	
+@register.inclusion_tag('tags_list.html',takes_context = True)
+def tagsList(context):
+    tags = Tag.objects.all()
+    return {'list':tags}
+
 @register.inclusion_tag('page_list.html',takes_context = True)
 def pagesList(context):
 	pages = Page.objects.all()

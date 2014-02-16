@@ -1,0 +1,12 @@
+<div class="columns large-8">
+    <h4> Добротные сиськи </h4>
+<ul class="small-block-grid-4">
+    {% for item in items %}
+        <li><a href="/boobs/{{item.alias}}">
+            <img src='{{ item.mainPhoto.url_300x300 }}'> 
+
+            {{item.title}}
+        </a></li>
+    {% endfor %}
+</ul>
+</div>

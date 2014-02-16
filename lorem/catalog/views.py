@@ -13,7 +13,7 @@ import re
 import sys
 import sys
 from tuhes_breadcrumbs import t_bread
-
+from django.shortcuts import redirect
 #from polls.models import Poll
 
 
@@ -156,27 +156,39 @@ def get_query(query_string, search_fields):
             query = query | or_query
     return query   
 
-def search(request):
-	limitStart	= 2
-	offsetStart	= 0
-	#print offset
-	#print "_"
-	#print limit]
-	limit = limitStart
-	offset = 0
-	if (request.GET.has_key('page')):
-		if (request.GET['page'] > 0):
-			offsetStart = int(request.GET['page'])
-			offset = int(limit*int(request.GET['page']))
+def rand(request):
+    item = Item.objects.all().order_by('?')[1];
+    return redirect(item);
+def tag(request,tag):
+    items = Item.objects.filter(Q(tags__alias=tag));
+    return render_to_response('advertisments/search_result.html',{'items':items},context_instance=RequestContext(request))
 	
-	limit = int(limit) + int(offset)
+
+def search(request):
+	#limitStart	= 2
+	#offsetStart	= 0
+	#limit = limitStart
+	#offset = 0
+	#if (request.GET.has_key('page')):
+	#	if (request.GET['page'] > 0):
+	#		offsetStart = int(request.GET['page'])
+	#		offset = int(limit*int(request.GET['page']))
+	#
+	#limit = int(limit) + int(offset)
 	
 			
 	if request.GET.has_key('s'):
 		searchString = request.GET['s']
-	
+        else:
+                return redirect('/')
+        try:
+            item = Item.objects.get(title=searchString)
+            return redirect(item)
+        except:
+            pass
+
 	entry_query = Q(title__icontains=searchString)	|	Q(text__icontains=searchString)	
-	entry_query = entry_query | get_query(searchString, ['Itemfieldvalues__value'])
+	#entry_query = entry_query | get_query(searchString, ['Itemfieldvalues__value'])
 	#entry_query = entry_query 
 	
 	#entry_query = entry_query & Q(Itemfieldvalues__field__hidden='1')
@@ -184,8 +196,8 @@ def search(request):
 	
 	
 	
-	count = Item.objects.annotate(dcoount=Count('id')).count()
-	Items = Item.objects.select_related().filter(entry_query).order_by('-date').annotate(dcoount=Count('id'))
+	#count = Item.objects.annotate(dcoount=Count('id')).count()
+	Items = Item.objects.select_related().filter(entry_query).order_by('-id').annotate(dcoount=Count('id'))
 	#print unicode(Items.query)
 	#Items = Item.objects.select_related().filter(
 	#											Q(title__icontains=searchString)	|
@@ -197,7 +209,8 @@ def search(request):
 	
 	
 	
-	return render_to_response('Items/index.html',{'count':range(0,count/limitStart),'offset':offsetStart,'limit':limitStart, 'items':Items},context_instance=RequestContext(request))
+	#return render_to_response('Items/index.html',{'count':range(0,count/limitStart),'offset':offsetStart,'limit':limitStart, 'items':Items},context_instance=RequestContext(request))
+	return render_to_response('advertisments/search_result.html',{'items':Items},context_instance=RequestContext(request))
 	#items = Item.objects.filter(
 
 # Create your views here.

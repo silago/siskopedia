@@ -5,11 +5,17 @@ from django_summernote.admin import SummernoteModelAdmin
 
 class AdvertismentAdmin(admin.ModelAdmin):
 	pass
+class InfoValueAdmin(admin.TabularInline):
+    model = InfoValue
+
+class ItemAdmin(admin.ModelAdmin):
+    inlines = [InfoValueAdmin]
+
 
 #admin.site.register(City, AdvertismentAdmin)
 #admin.site.register(Category, MPTTModelAdmin)
 #admin.site.register(CategoryField, AdvertismentAdmin)
-admin.site.register(Item, AdvertismentAdmin)
+admin.site.register(Item, ItemAdmin)
 admin.site.register(Tag, AdvertismentAdmin)
 admin.site.register(InfoCategory, AdvertismentAdmin)
 admin.site.register(InfoValue, AdvertismentAdmin)
